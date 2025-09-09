@@ -1,0 +1,3 @@
+[submodule "Hands-onL4/H3_itcs6190_Hadoop_MapReduce_Wordcount"]
+	path = Hands-onL4/H3_itcs6190_Hadoop_MapReduce_Wordcount
+	url = git@github.com:ITCS6190-Fall2025/H3_itcs6190_Hadoop_MapReduce_Wordcount.git
