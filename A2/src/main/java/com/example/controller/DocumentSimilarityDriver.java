@@ -53,7 +53,9 @@ public class DocumentSimilarityDriver {
 	job2.setMapperClass(TextToIntMapper.class);
 	job2.setReducerClass(IntersectionReducer.class);
 	job2.setMapOutputKeyClass(Text.class);
-	job2.setMapOutputValueClass(IntWritable.class);
+	job2.setMapOutputValueClass(Text.class);
+	job2.setOutputKeyClass(Text.class);
+	job2.setOutputValueClass(Text.class);
 	job2.setInputFormatClass(KeyValueTextInputFormat.class);
 	FileInputFormat.addInputPath(job2, new Path(interimPath));
 	FileOutputFormat.setOutputPath(job2, new Path(finalPath));

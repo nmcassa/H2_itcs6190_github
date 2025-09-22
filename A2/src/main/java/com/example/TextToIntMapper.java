@@ -7,10 +7,13 @@ import java.io.IOException;
 import java.util.StringTokenizer;
 import java.util.*;
 
-public class TextToIntMapper extends Mapper<Text, Text, Text, IntWritable> {
-	private final IntWritable count = new IntWritable();
+//Ironic name now
+public class TextToIntMapper extends Mapper<Text, Text, Text, Text> {
+	//private final IntWritable count = new IntWritable();
 
 	protected void map(Text key, Text value, Context context) throws IOException, InterruptedException {
+		context.write(key, value);
+		/*
 		try {
 			int val = Integer.parseInt(value.toString().trim());
 			count.set(val);
@@ -19,5 +22,6 @@ public class TextToIntMapper extends Mapper<Text, Text, Text, IntWritable> {
 		catch (NumberFormatException e) {
 
 		}
+		*/
 	}
 }
