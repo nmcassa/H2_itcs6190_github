@@ -1,13 +1,29 @@
 # Assignment 2: Document Similarity using MapReduce
 
-**Name:** 
+**Name: Nicholas Cassarino** 
 
-**Student ID:** 
+**Student ID: 801177054** 
 
 ## Approach and Implementation
 
-### Mapper Design
-[Explain the logic of your Mapper class. What is its input key-value pair? What does it emit as its output key-value pair? How does it help in solving the overall problem?]
+### Mapper and Reducer Design
+My Implementation of a 'Document Similarity using MapReduce' utilizes two Mappers and Reducers. The first Mapper is present in DocumentSimilarityMapper.java. Here we take in our input which is shaped like this:
+
+```
+Document1 This is a sample document containing words
+Document2 Another document that also has words
+Document3 Sample text with different words
+```
+
+ and we map the first word of each line to be the documentID or key in our key-value pair. Then we create a HashSet of all the other words in our line to eliminate all duplicates. Then we one by one create a key value pair for each unique word in each line/document.
+
+```
+(this, Document1)
+(is, Document1)
+...
+(different, Document3)
+(words, Document3)
+```
 
 ### Reducer Design
 [Explain the logic of your Reducer class. What is its input key-value pair? How does it process the values for a given key? What does it emit as the final output? How do you calculate the Jaccard Similarity here?]
@@ -42,7 +58,7 @@ mvn clean package
 Copy the JAR file to the Hadoop ResourceManager container:
 
 ```bash
-docker cp target/WordCountUsingHadoop-0.0.1-SNAPSHOT.jar resourcemanager:/opt/hadoop-3.2.1/share/hadoop/mapreduce/
+docker cp target/DocumentSimilarity-0.0.1-SNAPSHOT.jar resourcemanager:/opt/hadoop-3.2.1/share/hadoop/mapreduce/
 ```
 
 ### 5. **Move Dataset to Docker Container**
@@ -50,7 +66,7 @@ docker cp target/WordCountUsingHadoop-0.0.1-SNAPSHOT.jar resourcemanager:/opt/ha
 Copy the dataset to the Hadoop ResourceManager container:
 
 ```bash
-docker cp shared-folder/input/data/input.txt resourcemanager:/opt/hadoop-3.2.1/share/hadoop/mapreduce/
+docker cp shared-folder/input/data/dataset_<size>.txt resourcemanager:/opt/hadoop-3.2.1/share/hadoop/mapreduce/
 ```
 
 ### 6. **Connect to Docker Container**
@@ -78,7 +94,7 @@ hadoop fs -mkdir -p /input/data
 Copy the input dataset to the HDFS folder:
 
 ```bash
-hadoop fs -put ./input.txt /input/data
+hadoop fs -put ./dataset_<data_size>.txt /input/data
 ```
 
 ### 8. **Execute the MapReduce Job**
@@ -86,7 +102,7 @@ hadoop fs -put ./input.txt /input/data
 Run your MapReduce job using the following command: Here I got an error saying output already exists so I changed it to output1 instead as destination folder
 
 ```bash
-hadoop jar /opt/hadoop-3.2.1/share/hadoop/mapreduce/WordCountUsingHadoop-0.0.1-SNAPSHOT.jar com.example.controller.Controller /input/data/input.txt /output1
+hadoop jar /opt/hadoop-3.2.1/share/hadoop/mapreduce/DocumentSimilarity-0.0.1-SNAPSHOT.jar com.example.controller.DocumentSimilarityDriver /input/data/input.txt /interm1 /output1
 ```
 
 ### 9. **View the Output**
