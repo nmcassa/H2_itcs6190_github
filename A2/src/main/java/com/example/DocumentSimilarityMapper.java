@@ -12,7 +12,7 @@ public class DocumentSimilarityMapper extends Mapper<Object, Text, Text, Text> {
     	private Text docIDText = new Text();
 
 	public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
-		String[] parts = value.toString().toLowerCase()split("\\s+");
+		String[] parts = value.toString().toLowerCase().split("\\s+");
 		if (parts.length < 2) return;
 
 		String docID = parts[0];

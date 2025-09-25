@@ -164,6 +164,10 @@ My first challenge was actually figuring out a way to do this. I know that I pro
 
 Most of my issues were just confusing myself
 
+## Trying Different amounts of nodes
+
+ When using just one node instead of three or two our execution time is longer, especially for large jobs. This is because we lose the parallelism of hadoop. With only one node we aren't able to split up our task and get parallelism. This causes our performance downgrade.
+
 ---
 ## Sample Input
 
